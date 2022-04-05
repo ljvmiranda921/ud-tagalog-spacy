@@ -101,3 +101,9 @@ commands:
     outputs:
       - "training/${vars.trg_treebank}/model-best"
       - "training/${vars.ugn_treebank}/model-best"
+
+  - name: "evaluate"
+    help: "Evaluate model using k-fold cross validation"
+    script:
+      - "python -m scripts.kfold corpus/${vars.trg_treebank}/trg_raw.spacy"
+      - "python -m scripts.kfold corpus/${vars.ugn_treebank}/ugn_raw.spacy"
