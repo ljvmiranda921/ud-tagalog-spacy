@@ -93,8 +93,10 @@ commands:
         --paths.dev corpus/${vars.ugn_treebank}/dev.spacy
         --nlp.lang=tl
     deps:
-      - "corpus/${vars.trg_treebank}/${vars.trg_data}.spacy"
-      - "corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy"
+      - "corpus/${vars.trg_treebank}/train.spacy"
+      - "corpus/${vars.trg_treebank}/dev.spacy"
+      - "corpus/${vars.ugn_treebank}/train.spacy"
+      - "corpus/${vars.ugn_treebank}/dev.spacy"
       - "configs/${vars.config}.cfg"
     outputs:
       - "training/${vars.trg_treebank}/model-best"
