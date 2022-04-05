@@ -70,8 +70,8 @@ commands:
   - name: split
     help: "Split the raw corpus into train and dev datasets (80/20)"
     script:
-      - "python -m scripts.split corpus/${vars.trg_treebank}/trg_raw.spacy corpus/${vars.trg_treebank}"
-      - "python -m scripts.split corpus/${vars.ugn_treebank}/ugn_raw.spacy corpus/${vars.ugn_treebank}"
+      - "python -m scripts.split corpus/${vars.trg_treebank}/trg_raw.spacy corpus/${vars.trg_treebank} --seed=42"
+      - "python -m scripts.split corpus/${vars.ugn_treebank}/ugn_raw.spacy corpus/${vars.ugn_treebank} --seed=42"
 
   - name: train
     help: "Train ${vars.trg_treebank} and ${vars.ugn_treebank}"
@@ -105,5 +105,5 @@ commands:
   - name: "evaluate"
     help: "Evaluate model using k-fold cross validation"
     script:
-      - "python -m scripts.kfold corpus/${vars.trg_treebank}/trg_raw.spacy"
-      - "python -m scripts.kfold corpus/${vars.ugn_treebank}/ugn_raw.spacy"
+      - "python -m scripts.kfold corpus/${vars.trg_treebank}/trg_raw.spacy configs/${vars.config}.cfg --output metrics/trg_kfold.json"
+      - "python -m scripts.kfold corpus/${vars.ugn_treebank}/ugn_raw.spacy configs/${vars.config}.cfg --output metrics/ugn_kfold.json"
