@@ -26,10 +26,10 @@ def main(infile: Path, outdir: Path, seed: Optional[int] = 42):
     msg.text(f"Train size: {len(train_data)}, dev size: {len(dev_data)}")
 
     msg.info(f"Saving to {outdir}")
-    train_doc_bin = DocBin(docs=train_data)
-    train_doc_bin.to_disk(outdir / "train.spacy")
-    dev_doc_bin = DocBin(docs=dev_data)
-    dev_doc_bin.to_disk(outdir / "dev.spacy")
+    train_docbin = DocBin(docs=train_data)
+    train_docbin.to_disk(outdir / "train.spacy")
+    dev_docbin = DocBin(docs=dev_data)
+    dev_docbin.to_disk(outdir / "dev.spacy")
 
 
 if __name__ == "__main__":
