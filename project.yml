@@ -67,6 +67,12 @@ commands:
       - "corpus/${vars.trg_treebank}/trg_raw.spacy"
       - "corpus/${vars.ugn_treebank}/ugn_raw.spacy"
 
+  - name: split
+    help: "Split the raw corpus into train and dev datasets (80/20)"
+    script:
+      - "python -m scripts.split corpus/${vars.trg_treebank}/trg_raw.spacy corpus/${vars.trg_treebank}"
+      - "python -m scripts.split corpus/${vars.ugn_treebank}/ugn_raw.spacy corpus/${vars.ugn_treebank}"
+
   - name: train
     help: "Train ${vars.trg_treebank} and ${vars.ugn_treebank}"
     script:
@@ -75,14 +81,16 @@ commands:
         configs/${vars.config}.cfg
         --output training/${vars.trg_treebank}
         --gpu-id ${vars.gpu}
-        --paths.train corpus/${vars.trg_treebank}/${vars.trg_data}.spacy
+        --paths.train corpus/${vars.trg_treebank}/train.spacy
+        --paths.dev corpus/${vars.trg_treebank}/dev.spacy
         --nlp.lang=tl
       - >-
         python -m spacy train
         configs/${vars.config}.cfg
         --output training/${vars.ugn_treebank}
         --gpu-id ${vars.gpu}
-        --paths.train corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy
+        --paths.train corpus/${vars.ugn_treebank}/train.spacy
+        --paths.dev corpus/${vars.ugn_treebank}/dev.spacy
         --nlp.lang=tl
     deps:
       - "corpus/${vars.trg_treebank}/${vars.trg_data}.spacy"
