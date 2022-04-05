@@ -8,7 +8,7 @@ from spacy.tokens import Doc, DocBin
 from wasabi import msg
 
 
-def main(infile: Path, outdir: Path, seed: Optional[int] = 42):
+def main(infile: Path, outdir: Path, seed: Optional[int] = None):
     nlp = spacy.blank("tl")
     doc_bin = DocBin().from_disk(infile)
     docs = list(doc_bin.get_docs(nlp.vocab))
