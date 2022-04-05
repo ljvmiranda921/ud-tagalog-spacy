@@ -30,3 +30,30 @@ split:
   outs: []
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+train:
+  cmd: python -m spacy run train
+  script:
+    - python -m spacy train configs/default.cfg --output training/UD_Tagalog-TRG --gpu-id
+      -1 --paths.train corpus/UD_Tagalog-TRG/train.spacy --paths.dev corpus/UD_Tagalog-TRG/dev.spacy
+      --nlp.lang=tl
+    - python -m spacy train configs/default.cfg --output training/UD_Tagalog-Ugnayan
+      --gpu-id -1 --paths.train corpus/UD_Tagalog-Ugnayan/train.spacy --paths.dev
+      corpus/UD_Tagalog-Ugnayan/dev.spacy --nlp.lang=tl
+  deps:
+    - path: corpus/UD_Tagalog-TRG/train.spacy
+      md5: 472692346d8a4a34ba23dc36c5ebe628
+    - path: corpus/UD_Tagalog-TRG/dev.spacy
+      md5: fd61a8e377986436848abff787530712
+    - path: corpus/UD_Tagalog-Ugnayan/train.spacy
+      md5: ed25d8135e5d749cb02f6c30607fd3a5
+    - path: corpus/UD_Tagalog-Ugnayan/dev.spacy
+      md5: 0297e7bc2b8345e0389ecae1ad59f734
+    - path: configs/default.cfg
+      md5: 8849fa43cdf1a71b0800eb84ac3cee8a
+  outs:
+    - path: training/UD_Tagalog-TRG/model-best
+      md5: 7f97f721b11eac6ccaea5356620e22de
+    - path: training/UD_Tagalog-Ugnayan/model-best
+      md5: fea6518b4da595fe224261d18c9deed3
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
