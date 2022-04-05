@@ -48,7 +48,7 @@ commands:
         assets/${vars.trg_treebank}/${vars.trg_data}.conllu
         corpus/${vars.trg_treebank}/
         --converter conllu
-        --n-sents 10
+        --n-sents 1
         --merge-subtokens
       - "mkdir -p corpus/${vars.ugn_treebank}"
       - >-
@@ -56,14 +56,16 @@ commands:
         assets/${vars.ugn_treebank}/${vars.ugn_data}.conllu
         corpus/${vars.ugn_treebank}/
         --converter conllu
-        --n-sents 10
+        --n-sents 1
         --merge-subtokens
+      - "mv corpus/${vars.trg_treebank}/${vars.trg_data}.spacy corpus/${vars.trg_treebank}/trg_raw.spacy"
+      - "mv corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy corpus/${vars.ugn_treebank}/ugn_raw.spacy"
     deps:
       - "assets/${vars.trg_treebank}/${vars.trg_data}.conllu"
       - "assets/${vars.ugn_treebank}/${vars.ugn_data}.conllu"
     outputs:
-      - "corpus/${vars.trg_treebank}/${vars.trg_data}.spacy"
-      - "corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy"
+      - "corpus/${vars.trg_treebank}/trg_raw.spacy"
+      - "corpus/${vars.ugn_treebank}/ugn_raw.spacy"
 
   - name: train
     help: "Train ${vars.trg_treebank} and ${vars.ugn_treebank}"
