@@ -1,0 +1,21 @@
+preprocess:
+  cmd: python -m spacy run preprocess
+  script:
+    - mkdir -p corpus/UD_Tagalog-TRG
+    - python -m spacy convert  assets/UD_Tagalog-TRG/tl_trg-ud-test.conllu corpus/UD_Tagalog-TRG/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - mkdir -p corpus/UD_Tagalog-Ugnayan
+    - python -m spacy convert  assets/UD_Tagalog-Ugnayan/tl_ugnayan-ud-test.conllu
+      corpus/UD_Tagalog-Ugnayan/ --converter conllu --n-sents 10 --merge-subtokens
+  deps:
+    - path: assets/UD_Tagalog-TRG/tl_trg-ud-test.conllu
+      md5: 49a7c768294ec0d9ce82013f2c8e4bb4
+    - path: assets/UD_Tagalog-Ugnayan/tl_ugnayan-ud-test.conllu
+      md5: fd9deae5658c0d63a777aeec10559b8d
+  outs:
+    - path: corpus/UD_Tagalog-TRG/tl_trg-ud-test.spacy
+      md5: 73241130af99a2d0d70021a5743f7b9a
+    - path: corpus/UD_Tagalog-Ugnayan/tl_ugnayan-ud-test.spacy
+      md5: 6159865b643cdadb927b429f3a119c6f
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6

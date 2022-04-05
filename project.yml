@@ -11,10 +11,13 @@ directories: ["assets", "corpus", "training", "metrics", "configs", "packages"]
 
 vars:
   config: "default"
+  gpu: -1
   trg_treebank: "UD_Tagalog-TRG"
   trg_data: "tl_trg-ud-test"
+  trg_package: "ud_tl_trg"
   ugn_treebank: "UD_Tagalog-Ugnayan"
   ugn_data: "tl_ugnayan-ud-test"
+  ugn_package: "ud_tl_ugnayan"
 
 assets:
   - dest: "assets/${vars.trg_treebank}"
@@ -61,3 +64,28 @@ commands:
     outputs:
       - "corpus/${vars.trg_treebank}/${vars.trg_data}.spacy"
       - "corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy"
+
+  - name: train
+    help: "Train ${vars.trg_treebank} and ${vars.ugn_treebank}"
+    script:
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.trg_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.trg_treebank}/${vars.trg_data}.spacy
+        --nlp.lang=tl
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.ugn_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy
+        --nlp.lang=tl
+    deps:
+      - "corpus/${vars.trg_treebank}/${vars.trg_data}.spacy"
+      - "corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy"
+      - "configs/${vars.config}.cfg"
+    outputs:
+      - "training/${vars.trg_treebank}/model-best"
+      - "training/${vars.ugn_treebank}/model-best"
