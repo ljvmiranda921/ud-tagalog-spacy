@@ -21,3 +21,12 @@ preprocess:
       md5: a416b62c9b7c7607997cef69ece725ec
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+split:
+  cmd: python -m spacy run split
+  script:
+    - python -m scripts.split corpus/UD_Tagalog-TRG/trg_raw.spacy corpus/UD_Tagalog-TRG
+    - python -m scripts.split corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy corpus/UD_Tagalog-Ugnayan
+  deps: []
+  outs: []
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
