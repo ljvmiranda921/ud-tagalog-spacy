@@ -1,0 +1,63 @@
+title: "Training a POS Tagger and Dependency Parser for Low-Resource Languages (Tagalog)"
+description: >
+  This project trains a part-of-speech tagger and dependency parser for a
+  low-resource language such as Tagalog. We will be using the TRG and Ugnayan
+  treebanks for this task. Since the number of sentences in each corpus is
+  small, we'll need to evaluate our model using [10-fold cross
+  validation](https://universaldependencies.org/release_checklist.html#data-split).
+  How this split is done will be demonstrated in this project.
+
+directories: ["assets", "corpus", "training", "metrics", "configs", "packages"]
+
+vars:
+  config: "default"
+  trg_treebank: "UD_Tagalog-TRG"
+  trg_data: "tl_trg-ud-test"
+  ugn_treebank: "UD_Tagalog-Ugnayan"
+  ugn_data: "tl_ugnayan-ud-test"
+
+assets:
+  - dest: "assets/${vars.trg_treebank}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.trg_treebank}"
+      branch: "master"
+      path: ""
+  - dest: "assets/${vars.ugn_treebank}"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.ugn_treebank}"
+      branch: "master"
+      path: ""
+
+workflows:
+  all:
+    - preprocess
+    # - train
+    # - evaluate
+    # - package
+
+commands:
+  - name: preprocess
+    help: "Convert the data to spaCy's format"
+    script:
+      - "mkdir -p corpus/${vars.trg_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.trg_treebank}/${vars.trg_data}.conllu
+        corpus/${vars.trg_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - "mkdir -p corpus/${vars.ugn_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.ugn_treebank}/${vars.ugn_data}.conllu
+        corpus/${vars.ugn_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+    deps:
+      - "assets/${vars.trg_treebank}/${vars.trg_data}.conllu"
+      - "assets/${vars.ugn_treebank}/${vars.ugn_data}.conllu"
+    outputs:
+      - "corpus/${vars.trg_treebank}/${vars.trg_data}.spacy"
+      - "corpus/${vars.ugn_treebank}/${vars.ugn_data}.spacy"
