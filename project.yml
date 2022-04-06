@@ -107,3 +107,10 @@ commands:
     script:
       - "python -m scripts.kfold corpus/${vars.trg_treebank}/trg_raw.spacy configs/${vars.config}.cfg --output metrics/trg_kfold.json"
       - "python -m scripts.kfold corpus/${vars.ugn_treebank}/ugn_raw.spacy configs/${vars.config}.cfg --output metrics/ugn_kfold.json"
+    deps:
+      - "corpus/${vars.trg_treebank}/trg_raw.spacy"
+      - "corpus/${vars.ugn_treebank}/ugn_raw.spacy"
+      - "configs/${vars.config}.cfg"
+    outputs:
+      - "metrics/trg_kfold.json"
+      - "metrics/ugn_kfold.json"
