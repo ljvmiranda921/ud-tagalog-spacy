@@ -1,3 +1,7 @@
 spacy
 typer
 wasabi
+# Dev
+pytest
+black
+isort
