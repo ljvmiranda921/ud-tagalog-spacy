@@ -57,3 +57,14 @@ train:
       md5: fea6518b4da595fe224261d18c9deed3
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+evaluate:
+  cmd: python -m spacy run evaluate
+  script:
+    - python -m scripts.kfold corpus/UD_Tagalog-TRG/trg_raw.spacy configs/default.cfg
+      --output metrics/trg_kfold.json
+    - python -m scripts.kfold corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy configs/default.cfg
+      --output metrics/ugn_kfold.json
+  deps: []
+  outs: []
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
