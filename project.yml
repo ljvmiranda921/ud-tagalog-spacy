@@ -12,6 +12,8 @@ directories: ["assets", "corpus", "training", "metrics", "configs", "packages"]
 vars:
   config: "default"
   gpu: -1
+  lang: "tl"
+  package_version: "0.0.0"
   trg_treebank: "UD_Tagalog-TRG"
   trg_data: "tl_trg-ud-test"
   trg_package: "ud_tl_trg"
@@ -34,9 +36,10 @@ assets:
 workflows:
   all:
     - preprocess
-    # - train
-    # - evaluate
-    # - package
+    - split
+    - train
+    - evaluate
+    - package
 
 commands:
   - name: preprocess
@@ -114,3 +117,31 @@ commands:
     outputs:
       - "metrics/trg_kfold.json"
       - "metrics/ugn_kfold.json"
+
+  - name: "package"
+    help: "Package the trained models so it can be installed"
+    script:
+      - >-
+        python -m spacy package
+        training/${vars.trg_treebank}/model-best packages
+        --name ${vars.trg_package}
+        --version ${vars.package_version}
+        --force
+      - >-
+        python -m spacy package
+        training/${vars.ugn_treebank}/model-best packages
+        --name ${vars.ugn_package}
+        --version ${vars.package_version}
+        --force
+    deps:
+      - "training/${vars.trg_treebank}/model-best"
+      - "training/${vars.ugn_treebank}/model-best"
+    outputs_no_cache:
+      - "packages/${vars.lang}_${vars.trg_package}-${vars.package_version}/dist/${vars.lang}_${vars.trg_package}-${vars.package_version}.tar.gz"
+      - "packages/${vars.lang}_${vars.ugn_package}-${vars.package_version}/dist/${vars.lang}_${vars.ugn_package}-${vars.package_version}.tar.gz"
+
+  - name: "clean"
+    help: "Remove intermediate files"
+    script:
+      - "rm -rf training/*"
+      - "rm -rf corpus/*"

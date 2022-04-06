@@ -68,3 +68,22 @@ evaluate:
   outs: []
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+package:
+  cmd: python -m spacy run package
+  script:
+    - python -m spacy package training/UD_Tagalog-TRG/model-best packages --name ud_tl_trg
+      --version 0.0.0 --force
+    - python -m spacy package training/UD_Tagalog-Ugnayan/model-best packages --name
+      ud_tl_ugnayan --version 0.0.0 --force
+  deps:
+    - path: training/UD_Tagalog-TRG/model-best
+      md5: 7f97f721b11eac6ccaea5356620e22de
+    - path: training/UD_Tagalog-Ugnayan/model-best
+      md5: fea6518b4da595fe224261d18c9deed3
+  outs:
+    - path: packages/tl_ud_tl_trg-0.0.0/dist/tl_ud_tl_trg-0.0.0.tar.gz
+      md5: 5dbf00e922a80031136323411b47586e
+    - path: packages/tl_ud_tl_ugnayan-0.0.0/dist/tl_ud_tl_ugnayan-0.0.0.tar.gz
+      md5: f10762ad41999d2d0ac2c3154b2f69d2
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
