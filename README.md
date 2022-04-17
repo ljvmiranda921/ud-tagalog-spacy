@@ -8,8 +8,8 @@ This project trains a part-of-speech tagger and dependency parser for a low-reso
 
 |         | TOKEN_ACC | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
 |---------|-----------|---------|-----------|---------|---------|---------|
-| 10-fold | 0.998     | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
-| TRG     | 1.000     | 0.789   | 0.424     | 0.779   | 0.793   | 0.572   |
+| 10-fold | 1.000     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
+| Ugnayan | 0.997     | 0.563   | 0.364     | 0.538   | 0.472   | 0.240   |
 
 **Ugnayan Treebank**
 
