@@ -14,7 +14,7 @@ from spacy.cli._util import show_validation_error
 from spacy.util import load_config
 from wasabi import msg
 
-METRICS = ["pos_acc", "morph_acc", "tag_acc", "dep_uas", "dep_las"]
+METRICS = ["token_acc", "pos_acc", "morph_acc", "tag_acc", "dep_uas", "dep_las"]
 
 
 def chunk(l: List, n: int):
