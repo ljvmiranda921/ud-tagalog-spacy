@@ -12,11 +12,10 @@ description: >
 
   The cross validation results can be seen below:
 
-
-  |         | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
-  |---------|---------|-----------|---------|---------|---------|
-  | TRG     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
-  | Ugnayan | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
+  |         | TOKEN_ACC | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
+  |---------|-----------|---------|-----------|---------|---------|---------|
+  | TRG     | 1.000     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
+  | Ugnayan | 0.997     | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
 
 directories: ["assets", "corpus", "training", "metrics", "configs", "packages"]
 
