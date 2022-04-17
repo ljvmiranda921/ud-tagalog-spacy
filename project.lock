@@ -64,8 +64,18 @@ evaluate:
       --output metrics/trg_kfold.json
     - python -m scripts.kfold corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy configs/default.cfg
       --output metrics/ugn_kfold.json
-  deps: []
-  outs: []
+  deps:
+    - path: corpus/UD_Tagalog-TRG/trg_raw.spacy
+      md5: 3d087de7117b91104bff423a8e8d59ec
+    - path: corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
+      md5: a416b62c9b7c7607997cef69ece725ec
+    - path: configs/default.cfg
+      md5: 6f9403cc7e5dc7c5e82e7a9f09f62fb1
+  outs:
+    - path: metrics/trg_kfold.json
+      md5: dd5bf91e5b3190199132597bb3bb2f68
+    - path: metrics/ugn_kfold.json
+      md5: a04800094a30610e89b144b7055ba174
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
 package:
