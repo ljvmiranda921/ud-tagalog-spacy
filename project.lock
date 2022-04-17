@@ -97,3 +97,26 @@ package:
       md5: f10762ad41999d2d0ac2c3154b2f69d2
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+evaluate-treebank:
+  cmd: python -m spacy run evaluate-treebank
+  script:
+    - python -m spacy evaluate training/UD_Tagalog-TRG/model-best corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
+      -o metrics/trg_model_on_ugn.json
+    - python -m spacy evaluate training/UD_Tagalog-Ugnayan/model-best corpus/UD_Tagalog-TRG/trg_raw.spacy
+      -o metrics/ugn_model_on_trg.json
+  deps:
+    - path: training/UD_Tagalog-TRG/model-best
+      md5: 7f97f721b11eac6ccaea5356620e22de
+    - path: training/UD_Tagalog-Ugnayan/model-best
+      md5: fea6518b4da595fe224261d18c9deed3
+    - path: corpus/UD_Tagalog-TRG/trg_raw.spacy
+      md5: 3d087de7117b91104bff423a8e8d59ec
+    - path: corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
+      md5: a416b62c9b7c7607997cef69ece725ec
+  outs:
+    - path: metrics/trg_model_on_ugn.json
+      md5: e09726d351e6eca07830ec876cb08d7b
+    - path: metrics/ugn_model_on_trg.json
+      md5: 7863a8bd88545b84bfb7e2721e1d5185
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
