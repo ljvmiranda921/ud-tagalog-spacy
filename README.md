@@ -5,10 +5,10 @@
 This project trains a part-of-speech tagger and dependency parser for a low-resource language such as Tagalog. We will be using the [TRG](https://universaldependencies.org/treebanks/tl_trg/index.html) and [Ugnayan](https://universaldependencies.org/treebanks/tl_ugnayan/index.html) treebanks for this task. Since the number of sentences in each corpus is small, we'll need to evaluate our model using [10-fold cross validation](https://universaldependencies.org/release_checklist.html#data-split). How to implement this split will be demonstrated in this project (`scripts/kfold.py`).
 The cross validation results can be seen below:
 
-|         | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
-|---------|---------|-----------|---------|---------|---------|
-| TRG     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
-| Ugnayan | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
+|         | TOKEN_ACC | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
+|---------|-----------|---------|-----------|---------|---------|---------|
+| TRG     | 1.000     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
+| Ugnayan | 0.997     | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
 
 
 ## 📋 project.yml
