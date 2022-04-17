@@ -8,14 +8,22 @@ description: >
   small, we'll need to evaluate our model using [10-fold cross
   validation](https://universaldependencies.org/release_checklist.html#data-split).
   How to implement this split will be demonstrated in this project
-  (`scripts/kfold.py`).
+  (`scripts/kfold.py`). The cross validation results can be seen below:
 
-  The cross validation results can be seen below:
+  **TRG Treebank**
 
   |         | TOKEN_ACC | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
   |---------|-----------|---------|-----------|---------|---------|---------|
-  | TRG     | 1.000     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
-  | Ugnayan | 0.997     | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
+  | 10-fold | 1.000     | 0.843   | 0.749     | 0.833   | 0.846   | 0.554   |
+  | Ugnayan | 0.997     | 0.563   | 0.364     | 0.538   | 0.472   | 0.240   |
+
+
+  **Ugnayan Treebank**
+
+  |         | TOKEN_ACC | POS_ACC | MORPH_ACC | TAG_ACC | DEP_UAS | DEP_LAS |
+  |---------|-----------|---------|-----------|---------|---------|---------|
+  | 10-fold | 0.998     | 0.819   | 0.995     | 0.810   | 0.667   | 0.409   |
+  | TRG     | 1.000     | 0.789   | 0.424     | 0.779   | 0.793   | 0.572   |
 
 directories: ["assets", "corpus", "training", "metrics", "configs", "packages"]
 
@@ -46,12 +54,12 @@ assets:
       path: ""
 
 workflows:
-  all:
+  monolingual:
     - preprocess
     - split
     - train
-    - evaluate
-    - package
+    - evaluate-kfold
+    - evaluate-treebank
 
 commands:
   - name: preprocess
@@ -117,7 +125,7 @@ commands:
       - "training/${vars.trg_treebank}/model-best"
       - "training/${vars.ugn_treebank}/model-best"
 
-  - name: "evaluate"
+  - name: "evaluate-kfold"
     help: "Evaluate model using k-fold cross validation"
     script:
       - "python -m scripts.kfold corpus/${vars.trg_treebank}/trg_raw.spacy configs/${vars.config}.cfg --output metrics/trg_kfold.json"
@@ -129,6 +137,20 @@ commands:
     outputs:
       - "metrics/trg_kfold.json"
       - "metrics/ugn_kfold.json"
+
+  - name: "evaluate-treebank"
+    help: "Evaluate the treebank model across each other"
+    script:
+      - "python -m spacy evaluate training/${vars.trg_treebank}/model-best corpus/${vars.ugn_treebank}/ugn_raw.spacy -o metrics/trg_model_on_ugn.json"
+      - "python -m spacy evaluate training/${vars.ugn_treebank}/model-best corpus/${vars.trg_treebank}/trg_raw.spacy -o metrics/ugn_model_on_trg.json"
+    deps:
+      - "training/${vars.trg_treebank}/model-best"
+      - "training/${vars.ugn_treebank}/model-best"
+      - "corpus/${vars.trg_treebank}/trg_raw.spacy"
+      - "corpus/${vars.ugn_treebank}/ugn_raw.spacy"
+    outputs:
+      - "metrics/trg_model_on_ugn.json"
+      - "metrics/ugn_model_on_trg.json"
 
   - name: "package"
     help: "Package the trained models so it can be installed"
