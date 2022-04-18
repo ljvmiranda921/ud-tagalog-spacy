@@ -38,31 +38,76 @@ vars:
   ugn_treebank: "UD_Tagalog-Ugnayan"
   ugn_data: "tl_ugnayan-ud-test"
   ugn_package: "ud_tl_ugnayan"
+  id_treebank: "UD_Indonesian-GSD"
+  id_train: "id_gsd-ud-train"
+  id_dev: "id_gsd-ud-dev"
+  uk_treebank: "UD_Ukrainian-IU"
+  uk_train: "uk_iu-ud-train"
+  uk_dev: "uk_iu-ud-dev"
+  vi_treebank: "UD_Vietnamese-VTB"
+  vi_train: "vi_vtb-ud-train"
+  vi_dev: "vi_vtb-ud-dev"
+  ro_treebank: "UD_Romanian-RRT"
+  ro_train: "ro_rrt-ud-train"
+  ro_dev: "ro_rrt-ud-dev"
+  ca_treebank: "UD_Catalan-AnCora"
+  ca_train: "ca_ancora-ud-train"
+  ca_dev: "ca_ancora-ud-dev"
 
 assets:
   - dest: "assets/${vars.trg_treebank}"
-    description: "Treebank data for UD TRG"
+    description: "Treebank data for UD_Tagalog-TRG"
     git:
       repo: "https://github.com/UniversalDependencies/${vars.trg_treebank}"
       branch: "master"
       path: ""
   - dest: "assets/${vars.ugn_treebank}"
-    description: "Treebank data for UD Ugnayan"
+    description: "Treebank data for UD_Tagalog-Ugnayan"
     git:
       repo: "https://github.com/UniversalDependencies/${vars.ugn_treebank}"
+      branch: "master"
+      path: ""
+  - dest: "assets/${vars.id_treebank}"
+    description: "Treebank data for UD_Indonesian-GSD"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.id_treebank}"
+      branch: "master"
+      path: ""
+  - dest: "assets/${vars.uk_treebank}"
+    description: "Treebank data for UD_Ukrainian-IU"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.uk_treebank}"
+      branch: "master"
+      path: ""
+  - dest: "assets/${vars.vi_treebank}"
+    description: "Treebank data for UD_Vietnamese-VTB"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.vi_treebank}"
+      branch: "master"
+      path: ""
+  - dest: "assets/${vars.ro_treebank}"
+    description: "Treebank data for UD_Romanian-RRT"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.ro_treebank}"
+      branch: "master"
+      path: ""
+  - dest: "assets/${vars.ca_treebank}"
+    description: "Treebank data for UD_Catalan-AnCora"
+    git:
+      repo: "https://github.com/UniversalDependencies/${vars.ca_treebank}"
       branch: "master"
       path: ""
 
 workflows:
   monolingual:
-    - preprocess
+    - preprocess-tl
     - split
-    - train
+    - train-tl
     - evaluate-kfold
     - evaluate-treebank
 
 commands:
-  - name: preprocess
+  - name: preprocess-tl
     help: "Convert the data to spaCy's format"
     script:
       - "mkdir -p corpus/${vars.trg_treebank}"
@@ -96,7 +141,7 @@ commands:
       - "python -m scripts.split corpus/${vars.trg_treebank}/trg_raw.spacy corpus/${vars.trg_treebank} --seed=42"
       - "python -m scripts.split corpus/${vars.ugn_treebank}/ugn_raw.spacy corpus/${vars.ugn_treebank} --seed=42"
 
-  - name: train
+  - name: train-tl
     help: "Train ${vars.trg_treebank} and ${vars.ugn_treebank}"
     script:
       - >-
