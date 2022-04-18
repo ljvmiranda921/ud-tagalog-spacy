@@ -108,6 +108,8 @@ workflows:
   crosslingual:
     - preprocess-foreign
     - train-foreign
+    - evaluate-foreign-trg
+    - evaluate-foreign-ugn
 
 commands:
   - name: preprocess-tl
@@ -347,6 +349,50 @@ commands:
     outputs:
       - "metrics/trg_model_on_ugn.json"
       - "metrics/ugn_model_on_trg.json"
+
+  - name: "evaluate-foreign-trg"
+    help: "Evaluate foreign treebanks on the Tagalog TRG treebank"
+    script:
+      - "python -m spacy evaluate training/${vars.id_treebank}/model-best corpus/${vars.trg_treebank}/trg_raw.spacy -o metrics/trg_${vars.id_treebank}.json"
+      - "python -m spacy evaluate training/${vars.uk_treebank}/model-best corpus/${vars.trg_treebank}/trg_raw.spacy -o metrics/trg_${vars.uk_treebank}.json"
+      - "python -m spacy evaluate training/${vars.vi_treebank}/model-best corpus/${vars.trg_treebank}/trg_raw.spacy -o metrics/trg_${vars.vi_treebank}.json"
+      - "python -m spacy evaluate training/${vars.ro_treebank}/model-best corpus/${vars.trg_treebank}/trg_raw.spacy -o metrics/trg_${vars.ro_treebank}.json"
+      - "python -m spacy evaluate training/${vars.ca_treebank}/model-best corpus/${vars.trg_treebank}/trg_raw.spacy -o metrics/trg_${vars.ca_treebank}.json"
+    deps:
+      - "training/${vars.id_treebank}/model-best"
+      - "training/${vars.uk_treebank}/model-best"
+      - "training/${vars.vi_treebank}/model-best"
+      - "training/${vars.ro_treebank}/model-best"
+      - "training/${vars.ca_treebank}/model-best"
+      - "corpus/${vars.trg_treebank}/trg_raw.spacy"
+    outputs:
+      - "metrics/trg_${vars.id_treebank}.json"
+      - "metrics/trg_${vars.uk_treebank}.json"
+      - "metrics/trg_${vars.vi_treebank}.json"
+      - "metrics/trg_${vars.ro_treebank}.json"
+      - "metrics/trg_${vars.ca_treebank}.json"
+
+  - name: "evaluate-foreign-ugn"
+    help: "Evaluate foreign treebanks on the Tagalog Ugnayan treebank"
+    script:
+      - "python -m spacy evaluate training/${vars.id_treebank}/model-best corpus/${vars.ugn_treebank}/ugn_raw.spacy -o metrics/ugn_${vars.id_treebank}.json"
+      - "python -m spacy evaluate training/${vars.uk_treebank}/model-best corpus/${vars.ugn_treebank}/ugn_raw.spacy -o metrics/ugn_${vars.uk_treebank}.json"
+      - "python -m spacy evaluate training/${vars.vi_treebank}/model-best corpus/${vars.ugn_treebank}/ugn_raw.spacy -o metrics/ugn_${vars.vi_treebank}.json"
+      - "python -m spacy evaluate training/${vars.ro_treebank}/model-best corpus/${vars.ugn_treebank}/ugn_raw.spacy -o metrics/ugn_${vars.ro_treebank}.json"
+      - "python -m spacy evaluate training/${vars.ca_treebank}/model-best corpus/${vars.ugn_treebank}/ugn_raw.spacy -o metrics/ugn_${vars.ca_treebank}.json"
+    deps:
+      - "training/${vars.id_treebank}/model-best"
+      - "training/${vars.uk_treebank}/model-best"
+      - "training/${vars.vi_treebank}/model-best"
+      - "training/${vars.ro_treebank}/model-best"
+      - "training/${vars.ca_treebank}/model-best"
+      - "corpus/${vars.trg_treebank}/ugn_raw.spacy"
+    outputs:
+      - "metrics/ugn_${vars.id_treebank}.json"
+      - "metrics/ugn_${vars.uk_treebank}.json"
+      - "metrics/ugn_${vars.vi_treebank}.json"
+      - "metrics/ugn_${vars.ro_treebank}.json"
+      - "metrics/ugn_${vars.ca_treebank}.json"
 
   - name: "package"
     help: "Package the trained models so it can be installed"
