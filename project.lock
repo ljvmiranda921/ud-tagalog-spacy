@@ -143,6 +143,11 @@ preprocess-foreign:
       --converter conllu --n-sents 10 --merge-subtokens
     - python -m spacy convert  assets/UD_Romanian-RRT/ro_rrt-ud-dev.conllu corpus/UD_Romanian-RRT/
       --converter conllu --n-sents 10 --merge-subtokens
+    - mkdir -p corpus/UD_Catalan-AnCora
+    - python -m spacy convert  assets/UD_Catalan-AnCora/ca_ancora-ud-train.conllu
+      corpus/UD_Catalan-AnCora/ --converter conllu --n-sents 10 --merge-subtokens
+    - python -m spacy convert  assets/UD_Catalan-AnCora/ca_ancora-ud-dev.conllu corpus/UD_Catalan-AnCora/
+      --converter conllu --n-sents 10 --merge-subtokens
   deps:
     - path: assets/UD_Indonesian-GSD/id_gsd-ud-train.conllu
       md5: ab53b7378fc9e7c5145f7ca03fffdd4e
@@ -182,8 +187,8 @@ preprocess-foreign:
     - path: corpus/UD_Romanian-RRT/ro_rrt-ud-dev.spacy
       md5: 5be47b608e07734ec91b6c2cf02407d1
     - path: corpus/UD_Catalan-AnCora/ca_ancora-ud-train.spacy
-      md5: null
+      md5: 2d5c67dbe7d49fe0b6828476129e822d
     - path: corpus/UD_Catalan-AnCora/ca_ancora-ud-dev.spacy
-      md5: null
+      md5: ccc723ef23b1be78f1c960453f7dec2c
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6

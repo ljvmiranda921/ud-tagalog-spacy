@@ -203,6 +203,21 @@ commands:
         --converter conllu
         --n-sents 10
         --merge-subtokens
+      - "mkdir -p corpus/${vars.ca_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.ca_treebank}/${vars.ca_train}.conllu
+        corpus/${vars.ca_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - >-
+        python -m spacy convert 
+        assets/${vars.ca_treebank}/${vars.ca_dev}.conllu
+        corpus/${vars.ca_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
     deps:
       - "assets/${vars.id_treebank}/${vars.id_train}.conllu"
       - "assets/${vars.id_treebank}/${vars.id_dev}.conllu"
