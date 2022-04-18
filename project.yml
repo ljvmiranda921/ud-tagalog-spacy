@@ -105,6 +105,9 @@ workflows:
     - train-tl
     - evaluate-kfold
     - evaluate-treebank
+  crosslingual:
+    - preprocess-foreign
+    - train-foreign
 
 commands:
   - name: preprocess-tl
@@ -255,6 +258,68 @@ commands:
     outputs:
       - "training/${vars.trg_treebank}/model-best"
       - "training/${vars.ugn_treebank}/model-best"
+
+  - name: train-foreign
+    help: "Train model from foreign treebanks"
+    script:
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.id_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.id_treebank}/${vars.id_train}.spacy
+        --paths.dev corpus/${vars.id_treebank}/${vars.id_dev}.spacy
+        --nlp.lang=id
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.uk_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.uk_treebank}/${vars.uk_train}.spacy
+        --paths.dev corpus/${vars.uk_treebank}/${vars.uk_dev}.spacy
+        --nlp.lang=uk
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.vi_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.uk_treebank}/${vars.vi_train}.spacy
+        --paths.dev corpus/${vars.uk_treebank}/${vars.vi_dev}.spacy
+        --nlp.lang=vi
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.ro_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.ro_treebank}/${vars.ro_train}.spacy
+        --paths.dev corpus/${vars.ro_treebank}/${vars.ro_dev}.spacy
+        --nlp.lang=ro
+      - >-
+        python -m spacy train
+        configs/${vars.config}.cfg
+        --output training/${vars.ca_treebank}
+        --gpu-id ${vars.gpu}
+        --paths.train corpus/${vars.ca_treebank}/${vars.ca_train}.spacy
+        --paths.dev corpus/${vars.ca_treebank}/${vars.ca_dev}.spacy
+        --nlp.lang=ca
+    deps:
+      - "corpus/${vars.id_treebank}/${vars.id_train}.spacy"
+      - "corpus/${vars.id_treebank}/${vars.id_dev}.spacy"
+      - "corpus/${vars.uk_treebank}/${vars.uk_train}.spacy"
+      - "corpus/${vars.uk_treebank}/${vars.uk_dev}.spacy"
+      - "corpus/${vars.vi_treebank}/${vars.vi_train}.spacy"
+      - "corpus/${vars.vi_treebank}/${vars.vi_dev}.spacy"
+      - "corpus/${vars.ro_treebank}/${vars.ro_train}.spacy"
+      - "corpus/${vars.ro_treebank}/${vars.ro_dev}.spacy"
+      - "corpus/${vars.ca_treebank}/${vars.ca_train}.spacy"
+      - "corpus/${vars.ca_treebank}/${vars.ca_dev}.spacy"
+      - "configs/${vars.config}.cfg"
+    outputs:
+      - "training/${vars.id_treebank}/model-best"
+      - "training/${vars.uk_treebank}/model-best"
+      - "training/${vars.vi_treebank}/model-best"
+      - "training/${vars.ro_treebank}/model-best"
+      - "training/${vars.ca_treebank}/model-best"
 
   - name: "evaluate-kfold"
     help: "Evaluate model using k-fold cross validation"
