@@ -120,3 +120,70 @@ evaluate-treebank:
       md5: 7863a8bd88545b84bfb7e2721e1d5185
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+preprocess-foreign:
+  cmd: python -m spacy run preprocess-foreign
+  script:
+    - mkdir -p corpus/UD_Indonesian-GSD
+    - python -m spacy convert  assets/UD_Indonesian-GSD/id_gsd-ud-train.conllu corpus/UD_Indonesian-GSD/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - python -m spacy convert  assets/UD_Indonesian-GSD/id_gsd-ud-dev.conllu corpus/UD_Indonesian-GSD/
+      --converter conllu --merge-subtokens --n-sents 10
+    - mkdir -p corpus/UD_Ukrainian-IU
+    - python -m spacy convert  assets/UD_Ukrainian-IU/uk_iu-ud-train.conllu corpus/UD_Ukrainian-IU/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - python -m spacy convert  assets/UD_Ukrainian-IU/uk_iu-ud-dev.conllu corpus/UD_Ukrainian-IU/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - mkdir -p corpus/UD_Vietnamese-VTB
+    - python -m spacy convert  assets/UD_Vietnamese-VTB/vi_vtb-ud-train.conllu corpus/UD_Vietnamese-VTB/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - python -m spacy convert  assets/UD_Vietnamese-VTB/vi_vtb-ud-dev.conllu corpus/UD_Vietnamese-VTB/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - mkdir -p corpus/UD_Romanian-RRT
+    - python -m spacy convert  assets/UD_Romanian-RRT/ro_rrt-ud-train.conllu corpus/UD_Romanian-RRT/
+      --converter conllu --n-sents 10 --merge-subtokens
+    - python -m spacy convert  assets/UD_Romanian-RRT/ro_rrt-ud-dev.conllu corpus/UD_Romanian-RRT/
+      --converter conllu --n-sents 10 --merge-subtokens
+  deps:
+    - path: assets/UD_Indonesian-GSD/id_gsd-ud-train.conllu
+      md5: ab53b7378fc9e7c5145f7ca03fffdd4e
+    - path: assets/UD_Indonesian-GSD/id_gsd-ud-dev.conllu
+      md5: 56441f8eda10c90980bb509c8c055c98
+    - path: assets/UD_Ukrainian-IU/uk_iu-ud-train.conllu
+      md5: 9e3622786a2bc13ee8d5d8452c2b5cfd
+    - path: assets/UD_Ukrainian-IU/uk_iu-ud-dev.conllu
+      md5: 9b93095664ed2236c1a740ca95b7b258
+    - path: assets/UD_Vietnamese-VTB/vi_vtb-ud-train.conllu
+      md5: 9f773227f6619e82e8b22a339c3f0bd0
+    - path: assets/UD_Vietnamese-VTB/vi_vtb-ud-dev.conllu
+      md5: 0135b14e1f624b120fb115d569e214cb
+    - path: assets/UD_Romanian-RRT/ro_rrt-ud-train.conllu
+      md5: fe64c4efd5452760a228b956120fa006
+    - path: assets/UD_Romanian-RRT/ro_rrt-ud-dev.conllu
+      md5: c0b06dbc4c0abea2fb098f0c5d740af3
+    - path: assets/UD_Catalan-AnCora/ca_ancora-ud-train.conllu
+      md5: 3b658e7a27f2bac4352e9b19c33d4991
+    - path: assets/UD_Catalan-AnCora/ca_ancora-ud-dev.conllu
+      md5: 3751b7df6402d2c3fe463d1300c4e8cf
+  outs:
+    - path: corpus/UD_Indonesian-GSD/id_gsd-ud-train.spacy
+      md5: 8123f9d79aca1d24640a7d7ec1b152af
+    - path: corpus/UD_Indonesian-GSD/id_gsd-ud-dev.spacy
+      md5: 5357a0a7384750aa371ef0c94f8b31f0
+    - path: corpus/UD_Ukrainian-IU/uk_iu-ud-train.spacy
+      md5: a0500bb6723bcff6dbc50bbc27979926
+    - path: corpus/UD_Ukrainian-IU/uk_iu-ud-dev.spacy
+      md5: 131c009044eb4ba6271821e70e3d254f
+    - path: corpus/UD_Vietnamese-VTB/vi_vtb-ud-train.spacy
+      md5: 1490576f6a68d289aca11d87f59c3a96
+    - path: corpus/UD_Vietnamese-VTB/vi_vtb-ud-dev.spacy
+      md5: 9487e96e662aabb6ec480aa45a7c20df
+    - path: corpus/UD_Romanian-RRT/ro_rrt-ud-train.spacy
+      md5: f8195be198196c8617348f6b921267e4
+    - path: corpus/UD_Romanian-RRT/ro_rrt-ud-dev.spacy
+      md5: 5be47b608e07734ec91b6c2cf02407d1
+    - path: corpus/UD_Catalan-AnCora/ca_ancora-ud-train.spacy
+      md5: null
+    - path: corpus/UD_Catalan-AnCora/ca_ancora-ud-dev.spacy
+      md5: null
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
