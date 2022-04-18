@@ -135,6 +135,92 @@ commands:
       - "corpus/${vars.trg_treebank}/trg_raw.spacy"
       - "corpus/${vars.ugn_treebank}/ugn_raw.spacy"
 
+  - name: preprocess-foreign
+    help: "Convert foreign treebanks to spaCy's format"
+    script:
+      - "mkdir -p corpus/${vars.id_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.id_treebank}/${vars.id_train}.conllu
+        corpus/${vars.id_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - >-
+        python -m spacy convert 
+        assets/${vars.id_treebank}/${vars.id_dev}.conllu
+        corpus/${vars.id_treebank}/
+        --converter conllu
+        --merge-subtokens
+        --n-sents 10
+      - "mkdir -p corpus/${vars.uk_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.uk_treebank}/${vars.uk_train}.conllu
+        corpus/${vars.uk_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - >-
+        python -m spacy convert 
+        assets/${vars.uk_treebank}/${vars.uk_dev}.conllu
+        corpus/${vars.uk_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - "mkdir -p corpus/${vars.vi_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.vi_treebank}/${vars.vi_train}.conllu
+        corpus/${vars.vi_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - >-
+        python -m spacy convert 
+        assets/${vars.vi_treebank}/${vars.vi_dev}.conllu
+        corpus/${vars.vi_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - "mkdir -p corpus/${vars.ro_treebank}"
+      - >-
+        python -m spacy convert 
+        assets/${vars.ro_treebank}/${vars.ro_train}.conllu
+        corpus/${vars.ro_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+      - >-
+        python -m spacy convert 
+        assets/${vars.ro_treebank}/${vars.ro_dev}.conllu
+        corpus/${vars.ro_treebank}/
+        --converter conllu
+        --n-sents 10
+        --merge-subtokens
+    deps:
+      - "assets/${vars.id_treebank}/${vars.id_train}.conllu"
+      - "assets/${vars.id_treebank}/${vars.id_dev}.conllu"
+      - "assets/${vars.uk_treebank}/${vars.uk_train}.conllu"
+      - "assets/${vars.uk_treebank}/${vars.uk_dev}.conllu"
+      - "assets/${vars.vi_treebank}/${vars.vi_train}.conllu"
+      - "assets/${vars.vi_treebank}/${vars.vi_dev}.conllu"
+      - "assets/${vars.ro_treebank}/${vars.ro_train}.conllu"
+      - "assets/${vars.ro_treebank}/${vars.ro_dev}.conllu"
+      - "assets/${vars.ca_treebank}/${vars.ca_train}.conllu"
+      - "assets/${vars.ca_treebank}/${vars.ca_dev}.conllu"
+    outputs:
+      - "corpus/${vars.id_treebank}/${vars.id_train}.spacy"
+      - "corpus/${vars.id_treebank}/${vars.id_dev}.spacy"
+      - "corpus/${vars.uk_treebank}/${vars.uk_train}.spacy"
+      - "corpus/${vars.uk_treebank}/${vars.uk_dev}.spacy"
+      - "corpus/${vars.vi_treebank}/${vars.vi_train}.spacy"
+      - "corpus/${vars.vi_treebank}/${vars.vi_dev}.spacy"
+      - "corpus/${vars.ro_treebank}/${vars.ro_train}.spacy"
+      - "corpus/${vars.ro_treebank}/${vars.ro_dev}.spacy"
+      - "corpus/${vars.ca_treebank}/${vars.ca_train}.spacy"
+      - "corpus/${vars.ca_treebank}/${vars.ca_dev}.spacy"
+
   - name: split
     help: "Split the raw corpus into train and dev datasets (80/20)"
     script:
