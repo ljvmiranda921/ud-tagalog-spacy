@@ -401,7 +401,7 @@ commands:
       - "training/${vars.vi_treebank}/model-best"
       - "training/${vars.ro_treebank}/model-best"
       - "training/${vars.ca_treebank}/model-best"
-      - "corpus/${vars.trg_treebank}/ugn_raw.spacy"
+      - "corpus/${vars.ugn_treebank}/ugn_raw.spacy"
     outputs:
       - "metrics/ugn_${vars.id_treebank}.json"
       - "metrics/ugn_${vars.uk_treebank}.json"
