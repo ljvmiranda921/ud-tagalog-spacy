@@ -300,8 +300,8 @@ commands:
         configs/${vars.config}.cfg
         --output training/${vars.vi_treebank}
         --gpu-id ${vars.gpu}
-        --paths.train corpus/${vars.uk_treebank}/${vars.vi_train}.spacy
-        --paths.dev corpus/${vars.uk_treebank}/${vars.vi_dev}.spacy
+        --paths.train corpus/${vars.vi_treebank}/${vars.vi_train}.spacy
+        --paths.dev corpus/${vars.vi_treebank}/${vars.vi_dev}.spacy
         --nlp.lang=vi
       - >-
         python -m spacy train
