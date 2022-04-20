@@ -297,7 +297,7 @@ commands:
         --nlp.lang=uk
       - >-
         python -m spacy train
-        configs/${vars.config}.cfg
+        configs/vi_${vars.config}.cfg
         --output training/${vars.vi_treebank}
         --gpu-id ${vars.gpu}
         --paths.train corpus/${vars.vi_treebank}/${vars.vi_train}.spacy
