@@ -199,6 +199,8 @@ evaluate-foreign-trg:
       -o metrics/trg_UD_Indonesian-GSD.json
     - python -m spacy evaluate training/UD_Ukrainian-IU/model-best corpus/UD_Tagalog-TRG/trg_raw.spacy
       -o metrics/trg_UD_Ukrainian-IU.json
+    - python -m spacy evaluate training/UD_Vietnamese-VTB/model-best corpus/UD_Tagalog-TRG/trg_raw.spacy
+      -o metrics/trg_UD_Vietnamese-VTB.json
     - python -m spacy evaluate training/UD_Romanian-RRT/model-best corpus/UD_Tagalog-TRG/trg_raw.spacy
       -o metrics/trg_UD_Romanian-RRT.json
     - python -m spacy evaluate training/UD_Catalan-AnCora/model-best corpus/UD_Tagalog-TRG/trg_raw.spacy
@@ -208,6 +210,8 @@ evaluate-foreign-trg:
       md5: 8023eaa65f1bf072e191dfe5208c3349
     - path: training/UD_Ukrainian-IU/model-best
       md5: 4a8107f3b9fd0472dc447f15a15735d2
+    - path: training/UD_Vietnamese-VTB/model-best
+      md5: 71c3b95522145a9e9e54db83169964e2
     - path: training/UD_Romanian-RRT/model-best
       md5: ff99f2c14e1c1a42ff4aae718d54b2bf
     - path: training/UD_Catalan-AnCora/model-best
@@ -216,13 +220,15 @@ evaluate-foreign-trg:
       md5: 3d087de7117b91104bff423a8e8d59ec
   outs:
     - path: metrics/trg_UD_Indonesian-GSD.json
-      md5: ea661922a71ee72fb162626cd8526707
+      md5: 68870d0c121d36094d464a5de05373d5
     - path: metrics/trg_UD_Ukrainian-IU.json
-      md5: d885de9dc21e2181f6e93c703e0dc097
+      md5: eab8ace4430d7259028454648dfadbc7
+    - path: metrics/trg_UD_Vietnamese-VTB.json
+      md5: 9aeff060c98960fd4dbc268040837eee
     - path: metrics/trg_UD_Romanian-RRT.json
-      md5: 41393114bec848ee604eea62a0e9f1c6
+      md5: 27e8f5e2bbb54d86305206b3c6cdaf05
     - path: metrics/trg_UD_Catalan-AnCora.json
-      md5: 13fb86445c9e6b516b7b4e270d72e8ca
+      md5: 483f9b837068240f85de999a47483e4c
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
 evaluate-foreign-ugn:
@@ -232,6 +238,8 @@ evaluate-foreign-ugn:
       -o metrics/ugn_UD_Indonesian-GSD.json
     - python -m spacy evaluate training/UD_Ukrainian-IU/model-best corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
       -o metrics/ugn_UD_Ukrainian-IU.json
+    - python -m spacy evaluate training/UD_Vietnamese-VTB/model-best corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
+      -o metrics/ugn_UD_Vietnamese-VTB.json
     - python -m spacy evaluate training/UD_Romanian-RRT/model-best corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
       -o metrics/ugn_UD_Romanian-RRT.json
     - python -m spacy evaluate training/UD_Catalan-AnCora/model-best corpus/UD_Tagalog-Ugnayan/ugn_raw.spacy
@@ -241,6 +249,8 @@ evaluate-foreign-ugn:
       md5: 8023eaa65f1bf072e191dfe5208c3349
     - path: training/UD_Ukrainian-IU/model-best
       md5: 4a8107f3b9fd0472dc447f15a15735d2
+    - path: training/UD_Vietnamese-VTB/model-best
+      md5: 71c3b95522145a9e9e54db83169964e2
     - path: training/UD_Romanian-RRT/model-best
       md5: ff99f2c14e1c1a42ff4aae718d54b2bf
     - path: training/UD_Catalan-AnCora/model-best
@@ -249,12 +259,56 @@ evaluate-foreign-ugn:
       md5: a416b62c9b7c7607997cef69ece725ec
   outs:
     - path: metrics/ugn_UD_Indonesian-GSD.json
-      md5: 64ac0e10f1143651d4876bd70539df9c
+      md5: d413450b54bbe7356c908e0580505f57
     - path: metrics/ugn_UD_Ukrainian-IU.json
-      md5: 88547551d080abaa12665648b6885df4
+      md5: 2b957bc65472b7efe74a00abf6eea784
+    - path: metrics/ugn_UD_Vietnamese-VTB.json
+      md5: 19c492a6e8904cfd59a896bf626a610b
     - path: metrics/ugn_UD_Romanian-RRT.json
-      md5: b735b3415a15476f7e8b8876cd45afae
+      md5: 18c827c831992198daa78fc1882d34ca
     - path: metrics/ugn_UD_Catalan-AnCora.json
-      md5: a995ac83784476ee628da47abff865a8
+      md5: 4b3c231066008f6da8d475ad865c118e
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
+train-foreign:
+  cmd: python -m spacy run train-foreign
+  script:
+    - python -m spacy train configs/vi_default.cfg --output training/UD_Vietnamese-VTB
+      --gpu-id -1 --paths.train corpus/UD_Vietnamese-VTB/vi_vtb-ud-train.spacy --paths.dev
+      corpus/UD_Vietnamese-VTB/vi_vtb-ud-dev.spacy --nlp.lang=vi
+  deps:
+    - path: corpus/UD_Indonesian-GSD/id_gsd-ud-train.spacy
+      md5: 8123f9d79aca1d24640a7d7ec1b152af
+    - path: corpus/UD_Indonesian-GSD/id_gsd-ud-dev.spacy
+      md5: 5357a0a7384750aa371ef0c94f8b31f0
+    - path: corpus/UD_Ukrainian-IU/uk_iu-ud-train.spacy
+      md5: a0500bb6723bcff6dbc50bbc27979926
+    - path: corpus/UD_Ukrainian-IU/uk_iu-ud-dev.spacy
+      md5: 131c009044eb4ba6271821e70e3d254f
+    - path: corpus/UD_Vietnamese-VTB/vi_vtb-ud-train.spacy
+      md5: af46dbcaa62bb155ba368530c1180401
+    - path: corpus/UD_Vietnamese-VTB/vi_vtb-ud-dev.spacy
+      md5: 90710e0ddd52935c8754cb750a170d9e
+    - path: corpus/UD_Romanian-RRT/ro_rrt-ud-train.spacy
+      md5: f8195be198196c8617348f6b921267e4
+    - path: corpus/UD_Romanian-RRT/ro_rrt-ud-dev.spacy
+      md5: 5be47b608e07734ec91b6c2cf02407d1
+    - path: corpus/UD_Catalan-AnCora/ca_ancora-ud-train.spacy
+      md5: 2d5c67dbe7d49fe0b6828476129e822d
+    - path: corpus/UD_Catalan-AnCora/ca_ancora-ud-dev.spacy
+      md5: ccc723ef23b1be78f1c960453f7dec2c
+    - path: configs/default.cfg
+      md5: 6f9403cc7e5dc7c5e82e7a9f09f62fb1
+  outs:
+    - path: training/UD_Indonesian-GSD/model-best
+      md5: 8023eaa65f1bf072e191dfe5208c3349
+    - path: training/UD_Ukrainian-IU/model-best
+      md5: 4a8107f3b9fd0472dc447f15a15735d2
+    - path: training/UD_Vietnamese-VTB/model-best
+      md5: 71c3b95522145a9e9e54db83169964e2
+    - path: training/UD_Romanian-RRT/model-best
+      md5: ff99f2c14e1c1a42ff4aae718d54b2bf
+    - path: training/UD_Catalan-AnCora/model-best
+      md5: e526494045151123d5982f8294c20b10
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
