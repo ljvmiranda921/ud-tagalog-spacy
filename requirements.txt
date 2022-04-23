@@ -1,7 +1,4 @@
 spacy
 typer
 wasabi
-# Dev
-pytest
-black
-isort
+spacy-streamlit
