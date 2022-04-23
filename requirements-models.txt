@@ -1,0 +1,9 @@
+# Tagalog models
+models/tl_ud_tl_trg-0.0.0.tar.gz
+models/tl_ud_tl_ugnayan-0.0.0.tar.gz
+# Foreign models
+models/id_ud_id_gsd-0.0.0.tar.gz
+models/vi_ud_vi_vtb-0.0.0.tar.gz
+models/uk_ud_uk_iu-0.0.0.tar.gz
+models/ro_ud_ro_rrt-0.0.0.tar.gz
+models/ca_ud_ca_ancora-0.0.0.tar.gz
