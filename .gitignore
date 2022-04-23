@@ -3,6 +3,9 @@ corpus/
 training/
 packages/
 
+# Do not ignore some model files
+!packages/ro_ud_ro_rrt-0.0.0/dist/ro_ud_ro_rrt-0.0.0.tar.gz
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

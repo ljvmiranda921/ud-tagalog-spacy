@@ -53,7 +53,7 @@ description: |
   | uk-iu     | 0.998     | 0.151   | 0.123     | 0.000   | 0.300   | 0.084   |
   | ca-ancora | 0.994     | 0.267   | 0.301     | 0.025   | 0.242   | 0.041   |
 
-directories: ["assets", "corpus", "training", "metrics", "configs", "packages"]
+directories: ["assets", "corpus", "training", "metrics", "configs", "packages", "models"]
 
 vars:
   config: "default"
@@ -463,12 +463,13 @@ commands:
         --name ${vars.ugn_package}
         --version ${vars.package_version}
         --force
+      - sh -c "mv packages/*/dist/*.tar.gz models/"
     deps:
       - "training/${vars.trg_treebank}/model-best"
       - "training/${vars.ugn_treebank}/model-best"
     outputs_no_cache:
-      - "packages/${vars.lang}_${vars.trg_package}-${vars.package_version}/dist/${vars.lang}_${vars.trg_package}-${vars.package_version}.tar.gz"
-      - "packages/${vars.lang}_${vars.ugn_package}-${vars.package_version}/dist/${vars.lang}_${vars.ugn_package}-${vars.package_version}.tar.gz"
+      - "models/${vars.lang}_${vars.trg_package}-${vars.package_version}.tar.gz"
+      - "models/${vars.lang}_${vars.ugn_package}-${vars.package_version}.tar.gz"
 
   - name: "package-foreign"
     help: "Package the trained foreign models so they can be installed"
@@ -503,6 +504,19 @@ commands:
         --name ${vars.ca_package}
         --version ${vars.package_version}
         --force
+      - sh -c "mv packages/*/dist/*.tar.gz models/"
+    deps:
+      - "training/${vars.id_treebank}/model-best"
+      - "training/${vars.vi_treebank}/model-best"
+      - "training/${vars.uk_treebank}/model-best"
+      - "training/${vars.ro_treebank}/model-best"
+      - "training/${vars.ca_treebank}/model-best"
+    outputs_no_cache:
+      - "models/${vars.lang}_${vars.id_package}-${vars.package_version}.tar.gz"
+      - "models/${vars.lang}_${vars.vi_package}-${vars.package_version}.tar.gz"
+      - "models/${vars.lang}_${vars.uk_package}-${vars.package_version}.tar.gz"
+      - "models/${vars.lang}_${vars.ro_package}-${vars.package_version}.tar.gz"
+      - "models/${vars.lang}_${vars.ca_package}-${vars.package_version}.tar.gz"
 
   - name: "clean"
     help: "Remove intermediate files"
