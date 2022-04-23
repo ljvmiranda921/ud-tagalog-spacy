@@ -1,0 +1,5 @@
+spacy
+typer
+wasabi
+wheel
+spacy-streamlit

@@ -154,7 +154,7 @@ commands:
   - name: "install"
     help: "Install dependencies"
     script:
-      - "pip install --user -r requirements.txt"
+      - "pip install -r requirements-exp.txt"
   - name: preprocess-tl
     help: "Convert the data to spaCy's format"
     script:

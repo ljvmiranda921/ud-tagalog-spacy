@@ -379,3 +379,11 @@ install-models:
   outs: []
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+install:
+  cmd: python -m spacy run install
+  script:
+    - pip install -r requirements-exp.txt
+  deps: []
+  outs: []
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
