@@ -523,3 +523,9 @@ commands:
     script:
       - "rm -rf training/*"
       - "rm -rf corpus/*"
+
+  - name: "install-models"
+    help: "Install all models from the models/ directory"
+    script:
+      - "pip install -r requirements-models.txt"
+      - "python -m spacy info"
