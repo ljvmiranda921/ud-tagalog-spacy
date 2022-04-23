@@ -69,18 +69,23 @@ vars:
   id_treebank: "UD_Indonesian-GSD"
   id_train: "id_gsd-ud-train"
   id_dev: "id_gsd-ud-dev"
+  id_package: "ud_id_gsd"
   uk_treebank: "UD_Ukrainian-IU"
   uk_train: "uk_iu-ud-train"
   uk_dev: "uk_iu-ud-dev"
+  uk_package: "ud_uk_iu"
   vi_treebank: "UD_Vietnamese-VTB"
   vi_train: "vi_vtb-ud-train"
   vi_dev: "vi_vtb-ud-dev"
+  vi_package: "ud_vi_vtb"
   ro_treebank: "UD_Romanian-RRT"
   ro_train: "ro_rrt-ud-train"
   ro_dev: "ro_rrt-ud-dev"
+  ro_package: "ud_ro_rrt"
   ca_treebank: "UD_Catalan-AnCora"
   ca_train: "ca_ancora-ud-train"
   ca_dev: "ca_ancora-ud-dev"
+  ca_package: "ud_ca_ancora"
 
 assets:
   - dest: "assets/${vars.trg_treebank}"
@@ -443,8 +448,8 @@ commands:
       - "metrics/ugn_${vars.ro_treebank}.json"
       - "metrics/ugn_${vars.ca_treebank}.json"
 
-  - name: "package"
-    help: "Package the trained models so it can be installed"
+  - name: "package-tl"
+    help: "Package the trained Tagalog models so they can be installed"
     script:
       - >-
         python -m spacy package
@@ -464,6 +469,40 @@ commands:
     outputs_no_cache:
       - "packages/${vars.lang}_${vars.trg_package}-${vars.package_version}/dist/${vars.lang}_${vars.trg_package}-${vars.package_version}.tar.gz"
       - "packages/${vars.lang}_${vars.ugn_package}-${vars.package_version}/dist/${vars.lang}_${vars.ugn_package}-${vars.package_version}.tar.gz"
+
+  - name: "package-foreign"
+    help: "Package the trained foreign models so they can be installed"
+    script:
+      - >-
+        python -m spacy package
+        training/${vars.id_treebank}/model-best packages
+        --name ${vars.id_package}
+        --version ${vars.package_version}
+        --force
+      - >-
+        python -m spacy package
+        training/${vars.vi_treebank}/model-best packages
+        --name ${vars.vi_package}
+        --version ${vars.package_version}
+        --force
+      - >-
+        python -m spacy package
+        training/${vars.uk_treebank}/model-best packages
+        --name ${vars.uk_package}
+        --version ${vars.package_version}
+        --force
+      - >-
+        python -m spacy package
+        training/${vars.ro_treebank}/model-best packages
+        --name ${vars.ro_package}
+        --version ${vars.package_version}
+        --force
+      - >-
+        python -m spacy package
+        training/${vars.ca_treebank}/model-best packages
+        --name ${vars.ca_package}
+        --version ${vars.package_version}
+        --force
 
   - name: "clean"
     help: "Remove intermediate files"

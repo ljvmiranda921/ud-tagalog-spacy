@@ -312,3 +312,39 @@ train-foreign:
       md5: e526494045151123d5982f8294c20b10
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
+package-foreign:
+  cmd: python -m spacy run package-foreign
+  script:
+    - python -m spacy package training/UD_Indonesian-GSD/model-best packages --name
+      ud_id_gsd --version 0.0.0 --force
+    - python -m spacy package training/UD_Vietnamese-VTB/model-best packages --name
+      ud_vi_vtb --version 0.0.0 --force
+    - python -m spacy package training/UD_Ukrainian-IU/model-best packages --name
+      ud_uk_iu --version 0.0.0 --force
+    - python -m spacy package training/UD_Romanian-RRT/model-best packages --name
+      ud_ro_rrt --version 0.0.0 --force
+    - python -m spacy package training/UD_Catalan-AnCora/model-best packages --name
+      ud_ca_ancora --version 0.0.0 --force
+  deps: []
+  outs: []
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6
+package-tl:
+  cmd: python -m spacy run package-tl
+  script:
+    - python -m spacy package training/UD_Tagalog-TRG/model-best packages --name ud_tl_trg
+      --version 0.0.0 --force
+    - python -m spacy package training/UD_Tagalog-Ugnayan/model-best packages --name
+      ud_tl_ugnayan --version 0.0.0 --force
+  deps:
+    - path: training/UD_Tagalog-TRG/model-best
+      md5: 7f97f721b11eac6ccaea5356620e22de
+    - path: training/UD_Tagalog-Ugnayan/model-best
+      md5: fea6518b4da595fe224261d18c9deed3
+  outs:
+    - path: packages/tl_ud_tl_trg-0.0.0/dist/tl_ud_tl_trg-0.0.0.tar.gz
+      md5: c1eece49f70f60a1c72299d5e5886529
+    - path: packages/tl_ud_tl_ugnayan-0.0.0/dist/tl_ud_tl_ugnayan-0.0.0.tar.gz
+      md5: 5cf13911758155789758604c1b4609af
+  spacy_version: 3.2.4
+  spacy_git_version: b50fe5ec6

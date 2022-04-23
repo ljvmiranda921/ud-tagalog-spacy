@@ -80,7 +80,8 @@ Commands are only re-run if their inputs have changed.
 | `evaluate-treebank` | Evaluate the treebank model across each other |
 | `evaluate-foreign-trg` | Evaluate foreign treebanks on the Tagalog TRG treebank |
 | `evaluate-foreign-ugn` | Evaluate foreign treebanks on the Tagalog Ugnayan treebank |
-| `package` | Package the trained models so it can be installed |
+| `package-tl` | Package the trained Tagalog models so they can be installed |
+| `package-foreign` | Package the trained foreign models so they can be installed |
 | `clean` | Remove intermediate files |
 
 ### ⏭ Workflows
