@@ -55,6 +55,7 @@ the two `tl` treebanks.
 | uk-iu     | 0.998     | 0.151   | 0.123     | 0.000   | 0.300   | 0.084   |
 | ca-ancora | 0.994     | 0.267   | 0.301     | 0.025   | 0.242   | 0.041   |
 
+
 ## 📋 project.yml
 
 The [`project.yml`](project.yml) defines the data assets required by the
@@ -69,6 +70,7 @@ Commands are only re-run if their inputs have changed.
 
 | Command | Description |
 | --- | --- |
+| `install` | Install dependencies |
 | `preprocess-tl` | Convert the data to spaCy's format |
 | `preprocess-foreign` | Convert foreign treebanks to spaCy's format |
 | `split` | Split the raw corpus into train and dev datasets (80/20) |
@@ -90,8 +92,8 @@ inputs have changed.
 
 | Workflow | Steps |
 | --- | --- |
-| `monolingual` | `preprocess-tl` &rarr; `split` &rarr; `train-tl` &rarr; `evaluate-kfold` &rarr; `evaluate-treebank` |
-| `crosslingual` | `preprocess-foreign` &rarr; `train-foreign` &rarr; `evaluate-foreign-trg` &rarr; `evaluate-foreign-ugn` |
+| `monolingual` | `install` &rarr; `preprocess-tl` &rarr; `split` &rarr; `train-tl` &rarr; `evaluate-kfold` &rarr; `evaluate-treebank` |
+| `crosslingual` | `install` &rarr; `preprocess-foreign` &rarr; `train-foreign` &rarr; `evaluate-foreign-trg` &rarr; `evaluate-foreign-ugn` |
 
 ### 🗂 Assets
 

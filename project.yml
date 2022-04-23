@@ -128,18 +128,24 @@ assets:
 
 workflows:
   monolingual:
+    - install
     - preprocess-tl
     - split
     - train-tl
     - evaluate-kfold
     - evaluate-treebank
   crosslingual:
+    - install
     - preprocess-foreign
     - train-foreign
     - evaluate-foreign-trg
     - evaluate-foreign-ugn
 
 commands:
+  - name: "install"
+    help: "Install dependencies"
+    script:
+      - "pip install --user -r requirements.txt"
   - name: preprocess-tl
     help: "Convert the data to spaCy's format"
     script:
