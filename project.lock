@@ -325,8 +325,29 @@ package-foreign:
       ud_ro_rrt --version 0.0.0 --force
     - python -m spacy package training/UD_Catalan-AnCora/model-best packages --name
       ud_ca_ancora --version 0.0.0 --force
-  deps: []
-  outs: []
+    - sh -c "mv packages/*/dist/*.tar.gz models/"
+  deps:
+    - path: training/UD_Indonesian-GSD/model-best
+      md5: 8023eaa65f1bf072e191dfe5208c3349
+    - path: training/UD_Vietnamese-VTB/model-best
+      md5: 71c3b95522145a9e9e54db83169964e2
+    - path: training/UD_Ukrainian-IU/model-best
+      md5: 4a8107f3b9fd0472dc447f15a15735d2
+    - path: training/UD_Romanian-RRT/model-best
+      md5: ff99f2c14e1c1a42ff4aae718d54b2bf
+    - path: training/UD_Catalan-AnCora/model-best
+      md5: e526494045151123d5982f8294c20b10
+  outs:
+    - path: models/tl_ud_id_gsd-0.0.0.tar.gz
+      md5: null
+    - path: models/tl_ud_vi_vtb-0.0.0.tar.gz
+      md5: null
+    - path: models/tl_ud_uk_iu-0.0.0.tar.gz
+      md5: null
+    - path: models/tl_ud_ro_rrt-0.0.0.tar.gz
+      md5: null
+    - path: models/tl_ud_ca_ancora-0.0.0.tar.gz
+      md5: null
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
 package-tl:
@@ -336,15 +357,16 @@ package-tl:
       --version 0.0.0 --force
     - python -m spacy package training/UD_Tagalog-Ugnayan/model-best packages --name
       ud_tl_ugnayan --version 0.0.0 --force
+    - sh -c "mv packages/*/dist/*.tar.gz models/"
   deps:
     - path: training/UD_Tagalog-TRG/model-best
       md5: 7f97f721b11eac6ccaea5356620e22de
     - path: training/UD_Tagalog-Ugnayan/model-best
       md5: fea6518b4da595fe224261d18c9deed3
   outs:
-    - path: packages/tl_ud_tl_trg-0.0.0/dist/tl_ud_tl_trg-0.0.0.tar.gz
-      md5: c1eece49f70f60a1c72299d5e5886529
-    - path: packages/tl_ud_tl_ugnayan-0.0.0/dist/tl_ud_tl_ugnayan-0.0.0.tar.gz
-      md5: 5cf13911758155789758604c1b4609af
+    - path: models/tl_ud_tl_trg-0.0.0.tar.gz
+      md5: 3c1d252fd62200baf65c470aab2f4819
+    - path: models/tl_ud_tl_ugnayan-0.0.0.tar.gz
+      md5: 911add61e418e4beef64f6dee9efe8c7
   spacy_version: 3.2.4
   spacy_git_version: b50fe5ec6
