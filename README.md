@@ -83,6 +83,8 @@ Commands are only re-run if their inputs have changed.
 | `package-tl` | Package the trained Tagalog models so they can be installed |
 | `package-foreign` | Package the trained foreign models so they can be installed |
 | `clean` | Remove intermediate files |
+| `install-models` | Install all models from the models/ directory |
+| `demo` | Run streamlit demo |
 
 ### ⏭ Workflows
 
@@ -95,6 +97,7 @@ inputs have changed.
 | --- | --- |
 | `monolingual` | `install` &rarr; `preprocess-tl` &rarr; `split` &rarr; `train-tl` &rarr; `evaluate-kfold` &rarr; `evaluate-treebank` |
 | `crosslingual` | `install` &rarr; `preprocess-foreign` &rarr; `train-foreign` &rarr; `evaluate-foreign-trg` &rarr; `evaluate-foreign-ugn` |
+| `streamlit-demo` | `install-models` &rarr; `demo` |
 
 ### 🗂 Assets
 
