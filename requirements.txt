@@ -3,3 +3,4 @@ typer
 wasabi
 wheel
 spacy-streamlit
+-r requirements-models.txt
